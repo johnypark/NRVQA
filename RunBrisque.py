@@ -37,9 +37,13 @@ if args.path:
         im=openfile(args.path+filename)
         res.append(bq.brisque(im))
         im_mscn=bq.calculate_mscn(im)
+        mscn_min=np.min(im_mscn)
+        mscn_max=np.max(im_mscn)
+        im_mscn=(im_mscn-mscn_min)/(mscn_max-mscn_min) #to make the values between 0 to 1
         filename=filename.split('.')[0]
+
         if args.mscn:
-            plt.imsave('f{args.mscn}\{filename}_mscn.jpg', im_mscn, cmap='Greys')
+            plt.imsave(f'{args.mscn}/{filename}_mscn.jpg', im_mscn, cmap='Greys')
           
 
 else:  
